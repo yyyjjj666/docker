@@ -1,11 +1,14 @@
-FROM centos:7
-RUN ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime
-RUN yum -y install epel-release
-RUN curl --silent --location https://rpm.nodesource.com/setup_10.x | bash -
-RUN yum -y install nodejs
+FROM python:3.7
+RUN ln -fs /usr/share/zoneinfo/Asia/Shanghai /etc/localtime && \
+    dpkg-reconfigure -f noninteractive tzdata
+WORKDIR /opt
+RUN wget http://cdn.npm.taobao.org/dist/node/v10.16.0/node-v10.16.0-linux-x64.tar.xz
+RUN xz -d node-v10.16.0-linux-x64.tar.xz && tar -xvf node-v10.16.0-linux-x64.tar
+WORKDIR /opt/node-v10.16.0-linux-x64
+RUN ln -s /opt/node-v10.16.0-linux-x64/bin/node /usr/local/bin/node
+RUN ln -s /opt/node-v10.16.0-linux-x64/bin/npm /usr/local/bin/npm
+RUN node -v && npm -v
 RUN npm install -g cnpm --registry=https://registry.npm.taobao.org
+RUN ln -s /opt/node-v10.16.0-linux-x64/bin/cnpm /usr/local/bin/cnpm
 RUN cnpm install -g pm2
-RUN yum -y groupinstall "Development tools"
-RUN yum -y install zlib-devel bzip2-devel openssl-devel ncurses-devel sqlite-devel readline-devel tk-devel gdbm-devel db4-devel libpcap-devel xz-devel
-RUN yum install libffi-devel -y
-RUN yum install -y  python36 && yum install -y python36-setuptools && yum install -y python36-pip
+WORKDIR /usr/local

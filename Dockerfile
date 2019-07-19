@@ -9,4 +9,3 @@ RUN yum -y groupinstall "Development tools"
 RUN yum -y install zlib-devel bzip2-devel openssl-devel ncurses-devel sqlite-devel readline-devel tk-devel gdbm-devel db4-devel libpcap-devel xz-devel
 RUN yum install libffi-devel -y
 RUN yum install -y  python36 && yum install -y python36-setuptools && yum install -y python36-pip
-

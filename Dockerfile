@@ -12,3 +12,4 @@ RUN npm install -g cnpm --registry=https://registry.npm.taobao.org
 RUN ln -s /opt/node-v10.16.0-linux-x64/bin/cnpm /usr/local/bin/cnpm
 RUN cnpm install -g pm2
 WORKDIR /usr/local
+RUN ln -s /opt/node-v10.16.0-linux-x64/bin/pm2 /usr/local/bin/pm2
